@@ -13,7 +13,7 @@ module R2Z2
 					  	   ignore_bots:	true,
 						   command_doesnt_exist_message: "Wrong command foo. Check !help"  )
 
-
+	
 	# R2Z2 Modules
 	Dir['modules/*.rb'].each { |mod| require_relative mod; puts "Loaded: #{mod}" }
 
