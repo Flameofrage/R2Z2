@@ -10,8 +10,7 @@ module R2Z2
 	R2Z2 = Discordrb::Commands::CommandBot.new(token: CONFIG['token'], 
 						   client_id: CONFIG['client_id'],
 						   prefix: CONFIG['prefix'],
-					  	   ignore_bots:	true,
-						   command_doesnt_exist_message: "Wrong command foo. Check !help"  )
+					  	   ignore_bots:	true)
 
 	
 	# R2Z2 Modules
