@@ -12,7 +12,7 @@ module R2Z2
 			event.respond "Here, #{R2Z2.users}"
 		end
 
-		command(:fish, bucket: :limit, description: 'Randomly selects a user and slaps them with a trout') do |event|
+		command(:fish, bucket: :limit, description: 'Apply directly to the forehead') do |event|
 			members = event.server.online_members
 			members.reject!(&:current_bot?).map! { |m| "#{m.id}" }
 			event.respond "*slaps around <@#{members.sample}> with a large trout*"	
