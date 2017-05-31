@@ -4,13 +4,13 @@ Just a bot that's going to cause someone a lot of trouble.
 
 ### Commands
 
-	* `help` shows a list of all the commands available
+  * `help` shows a list of all the commands available
 
-	* `ping` Responds with pong
+  * `ping` Responds with pong
 
-	* `invite` Invite R2Z2 to your channel
+  * `invite` Invite R2Z2 to your channel
 
-	* `fish` Apply directly to the forehead
+  * `fish` Apply directly to the forehead
 
 ### To Do
 -Create !act which will perform an action on a specified user
