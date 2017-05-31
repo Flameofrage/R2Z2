@@ -8,10 +8,6 @@ module R2Z2
 		command(:invite, bucket: :limit, description: 'Invite R2Z2 to your channel') do |event|
 			event.respond "Invite me via #{R2Z2.invite_url}"
 		end
-#		command(:userlist, bucket: :limit, description: 'Lists users hopefully') do |event|
-#			event.respond "Here, #{R2Z2.users}"
-#		end
-
 		command(:fish, bucket: :limit, rate_limit_message: '%User%, quit being a dick for %time% more seconds.', description: 'Apply directly to the forehead') do |event|
 			members = event.server.online_members
 			members.reject!(&:current_bot?).map! { |m| "#{m.id}" }
