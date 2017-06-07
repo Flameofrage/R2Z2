@@ -2,3 +2,4 @@
 data/config.yaml
 data/music_bot/*
 !data/music_bot/.gitkeep
+tags

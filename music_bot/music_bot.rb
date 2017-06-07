@@ -6,7 +6,7 @@ module R2Z2
   # Contains classes and information for music bot features.
   module MusicBot
     # Maximum length of a song in seconds.
-    MAX_SONG_LENGTH = 600
+    MAX_SONG_LENGTH = 3600
 
     # Ammount of songs that can be added to queue at once.
     MAX_SONGS_IN_QUEUE = 15
