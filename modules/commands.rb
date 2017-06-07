@@ -16,6 +16,26 @@ module R2Z2
         event.respond "*slaps around <@#{members.sample}> with a large trout*"	
       end
 
+      command(:lmgtfy, min_args: 1, description: 'Generates Let Me Goole That For You link.', usage: 'lmgtfy <text>') do |event, *text|
+        GOOGLE.shorten_text("http://lmgtfy.com/?q=#{text.join('+')}",
+                             preview: event.server.preview,
+                             original: event.server.original,
+                             minlength: event.server.minlength)
+      end
+
+      command(:stats, description: 'Shows bot statistics') do |event|
+        ping = ((Time.now - event.timestamp) * 1000).to_i
+        event << "\nServers: #{STATS.servers}."
+        event << "Users: #{STATS.users}."
+        event << "Times mentioned: #{STATS.mentions}."
+        event << "Uptime: #{time_in_words(STATS.uptime)}."
+        event << "Urls shortened: #{STATS.urls_shortened}."
+        event << "Youtube videos found: #{STATS.videos_found}"
+        event << "Songs played: #{STATS.songs_played}"
+        event << "Messages read: #{STATS.messages_read}."
+        event << "Ping: #{ping}ms."
+      end
+
       command(:queue, description: 'Displays current music queue.') do |event|
         if event.server.music_player.queue.empty?
           'Queue is empty, use `add` to add more songs.'
@@ -60,6 +80,25 @@ module R2Z2
         event << 'You can find more help for each of these commands by using `help <commandname>` command.'
       end
 
+      command(:clearqueue, description: 'Deletes songs from server queue.', usage: 'clearqueue <index/all>', required_permissions: [:manage_server], min_args: 1) do |event, argument|
+        if argument.chomp == 'all'
+          event.voice.stop_playing
+          event.server.music_player.delete_dir
+        elsif argument.to_i.between?(1, event.server.music_player.queue.length)
+          index = argument.to_i - 1
+          if index.zero?
+            event.voice.stop_playing
+            event.server.music_player.repeat = false
+          else
+            event.server.music_player.delete_song_at(index)
+          end
+        elsif !argument.to_i.between?(1, event.server.music_player.queue.length)
+          next "Can't find song with such index"
+        else
+          next 'Unknown argument, use `all` or song index.'
+        end
+        nil
+      end
 
       #Makes R2 Leave a voice channel
       command(:leave, description: 'Makes the bot leave your voice channel.', required_permissions: [:manage_server]) do |event|
