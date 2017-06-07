@@ -16,7 +16,7 @@ module R2Z2
     def find_video(query)
       result = @youtube.list_searches('snippet', q: query, type: 'video', max_results: 1).items.first
       return nil unless result
-      STATS.videos_found += 1
+#      STATS.videos_found += 1
       LOGGER.debug "Searched for video \"#{query}\" and found #{result.id.video_id}"
       result.id.video_id
     rescue => e
@@ -60,7 +60,7 @@ module R2Z2
       if !@ignored_urls.any? { |ignored_url| url.include?(ignored_url) }
         url_object = Google::Apis::UrlshortenerV1::Url.new(long_url: url)
         shortened_url = @shortener.insert_url(url_object).id
-        STATS.urls_shortened += 1
+#        STATS.urls_shortened += 1
         LOGGER.debug "Shortened \"#{url}\" to \"#{shortened_url}\""
       else
         return url
