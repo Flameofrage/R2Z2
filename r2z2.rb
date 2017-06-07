@@ -75,6 +75,18 @@ module Kernel
 end
 
 module R2Z2
+  module StoreData
+    def save_to_file(file, object)
+      File.open(file, 'w') do |f|
+        f.write YAML.dump(object)
+      end
+    end
+
+    def load_file(file)
+      return YAML.load_file(file) if File.exist?(file)
+      {}
+    end
+  end
 	run_supressed { Discordrb::LOG_TIMESTAMP_FORMAT = '%Y-%m-%d %H:%M:%S' }
 
 	debug = ARGV.include?('-debug') ? :debug : false
@@ -113,7 +125,7 @@ module R2Z2
 	modules.each { |m| R2Z2.include! m; puts "Included: #{m}" }
 
   GOOGLE = GoogleServices.new
-#  STATS = Stats.new
+  STATS = Stats.new
 
 	#Limit bucket
 	R2Z2.bucket :limit, limit: 6, time_span: 60, delay: 10
