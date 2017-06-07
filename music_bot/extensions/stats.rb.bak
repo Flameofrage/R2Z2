@@ -1,7 +1,7 @@
 module R2Z2
   # Stores bot statistics.
   class Stats
-    include StoreData
+#    include StoreData
 
     attr_reader :servers, :users, :uptime
 

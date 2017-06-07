@@ -92,6 +92,7 @@ module R2Z2
 
 	require_relative 'music_bot/music_bot.rb'
 	require_relative 'music_bot/server.rb'
+  require_relative 'music_bot/store_data.rb'
 
 	# Bot Config file
 	CONFIG = YAML.load_file('data/config.yaml')
@@ -112,7 +113,7 @@ module R2Z2
 	modules.each { |m| R2Z2.include! m; puts "Included: #{m}" }
 
   GOOGLE = GoogleServices.new
-  STATS = Stats.new
+#  STATS = Stats.new
 
 	#Limit bucket
 	R2Z2.bucket :limit, limit: 6, time_span: 60, delay: 10

@@ -1,7 +1,7 @@
 module R2Z2
   # Shortens links and finds videos from youtube.
   class GoogleServices
-    include StoreData
+    #include StoreData
 
     def initialize
       @youtube = Google::Apis::YoutubeV3::YouTubeService.new
@@ -10,7 +10,7 @@ module R2Z2
       @shortener.key = CONFIG['google_api_key']
       @youtube.key = CONFIG['google_api_key']
 
-      @ignored_urls = load_file("#{Dir.pwd}/data/ignored_urls.yml")
+      #@ignored_urls = load_file("#{Dir.pwd}/data/ignored_urls.yml")
     end
 
     def find_video(query)
