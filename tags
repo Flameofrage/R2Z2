@@ -1,0 +1,63 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Add	modules/commands.rb	/^  module Add$/;"	m	class:R2Z2.Commands
+Commands	modules/commands.rb	/^  module Commands$/;"	m	class:R2Z2
+Discordrb	music_bot/server.rb	/^module Discordrb$/;"	m
+GoogleServices	music_bot/google_services.rb	/^  class GoogleServices$/;"	c	class:R2Z2
+Kernel	r2z2.rb	/^module Kernel$/;"	m
+MusicBot	modules/music_player.rb	/^  module MusicBot$/;"	m	class:R2Z2
+MusicBot	music_bot/music_bot.rb	/^  module MusicBot$/;"	m	class:R2Z2
+MusicPlayer	modules/music_player.rb	/^    class MusicPlayer$/;"	c	class:R2Z2.MusicBot
+R2Z2	modules/commands.rb	/^module R2Z2$/;"	m
+R2Z2	modules/music_player.rb	/^module R2Z2$/;"	m
+R2Z2	modules/server_config.rb	/^module R2Z2$/;"	m
+R2Z2	modules/store_data.rb	/^module R2Z2$/;"	m
+R2Z2	music_bot/google_services.rb	/^module R2Z2$/;"	m
+R2Z2	music_bot/music_bot.rb	/^module R2Z2$/;"	m
+R2Z2	r2z2.rb	/^module R2Z2$/;"	m
+Server	music_bot/server.rb	/^  class Server$/;"	c	class:Discordrb
+ServerConfig	modules/server_config.rb	/^module ServerConfig$/;"	m	class:R2Z2
+StoreData	modules/store_data.rb	/^  module StoreData$/;"	m	class:R2Z2
+add	modules/music_player.rb	/^      def add(video_id)$/;"	f	class:R2Z2.MusicBot.MusicPlayer
+afk_timer	modules/music_player.rb	/^      def afk_timer$/;"	f	class:R2Z2.MusicBot
+bool_to_words	r2z2.rb	/^	def bool_to_words(bool, mode = :on)$/;"	f	class:Kernel
+clean_directory	modules/music_player.rb	/^      def clean_directory$/;"	f	class:R2Z2.MusicBot
+create_methods	music_bot/server.rb	/^    def create_methods$/;"	f	class:Discordrb.Server
+delete_dir	modules/music_player.rb	/^      def delete_dir$/;"	f	class:R2Z2.MusicBot
+delete_files	music_bot/music_bot.rb	/^    def self.delete_files$/;"	F	class:R2Z2.MusicBot
+delete_first_song	modules/music_player.rb	/^      def delete_first_song$/;"	f	class:R2Z2.MusicBot
+delete_server	music_bot/music_bot.rb	/^    def self.delete_server(id)$/;"	F	class:R2Z2.MusicBot
+delete_song	modules/music_player.rb	/^      def delete_song(song)$/;"	f	class:R2Z2.MusicBot
+delete_song_at	modules/music_player.rb	/^      def delete_song_at(index)$/;"	f	class:R2Z2.MusicBot
+disconnect	modules/music_player.rb	/^      def disconnect(message = nil)$/;"	f	class:R2Z2.MusicBot
+find_video	music_bot/google_services.rb	/^    def find_video(query)$/;"	f	class:R2Z2.GoogleServices
+initialize	modules/music_player.rb	/^      def initialize(id)$/;"	f	class:R2Z2.MusicBot.MusicPlayer
+initialize	music_bot/google_services.rb	/^    def initialize$/;"	f	class:R2Z2.GoogleServices
+load_config	modules/server_config.rb	/^    def self.load_config(id)$/;"	F	class:R2Z2.ServerConfig
+load_file	modules/store_data.rb	/^    def load_file(file)$/;"	f	class:R2Z2.StoreData
+play_song	modules/music_player.rb	/^      def play_song(song)$/;"	f	class:R2Z2.MusicBot
+playing?	modules/music_player.rb	/^      def playing?$/;"	f	class:R2Z2.MusicBot
+rand_string	r2z2.rb	/^	def rand_string(length = 10)$/;"	f	class:Kernel
+respond	modules/music_player.rb	/^      def respond(message)$/;"	f	class:R2Z2.MusicBot
+run_supressed	r2z2.rb	/^	def run_supressed(&block)$/;"	f	class:Kernel
+save	modules/server_config.rb	/^    def self.save$/;"	F	class:R2Z2.ServerConfig
+save_to_file	modules/store_data.rb	/^    def save_to_file(file, object)$/;"	f	class:R2Z2.StoreData
+settings_info	modules/server_config.rb	/^    def self.settings_info$/;"	F	class:R2Z2.ServerConfig
+shorten_text	music_bot/google_services.rb	/^    def shorten_text(var, preview: true, original: true, minlength: 21)$/;"	f	class:R2Z2.GoogleServices
+shorten_url	music_bot/google_services.rb	/^    def shorten_url(url)$/;"	f	class:R2Z2.GoogleServices
+start_loop	modules/music_player.rb	/^      def start_loop$/;"	f	class:R2Z2.MusicBot.MusicPlayer
+table	modules/music_player.rb	/^      def table$/;"	f	class:R2Z2.MusicBot.MusicPlayer
+table	music_bot/server.rb	/^    def table$/;"	f	class:Discordrb.Server
+time_in_words	r2z2.rb	/^	def time_in_words(time)$/;"	f	class:Kernel
+unique_song?	modules/music_player.rb	/^      def unique_song?(song)$/;"	f	class:R2Z2.MusicBot
+update_config	music_bot/server.rb	/^    def update_config(attributes = {})$/;"	f	class:Discordrb.Server
+update_game_status	music_bot/music_bot.rb	/^    def self.update_game_status$/;"	F	class:R2Z2.MusicBot
+update_servers	modules/server_config.rb	/^    def self.update_servers(config, id)$/;"	F	class:R2Z2.ServerConfig
+url_host	r2z2.rb	/^	def url_host(url)$/;"	f	class:Kernel
+valid_song?	modules/music_player.rb	/^      def valid_song?(song)$/;"	f	class:R2Z2.MusicBot
+valid_url?	r2z2.rb	/^	def valid_url?(url)$/;"	f	class:Kernel
+wait_for_song	modules/music_player.rb	/^      def wait_for_song(song)$/;"	f	class:R2Z2.MusicBot
