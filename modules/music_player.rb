@@ -67,7 +67,7 @@ module R2Z2
           loop do
             LOGGER.debug "Started music loop for server #{@id}"
             if @queue.empty?
-              respond('Music player is empty, add more songs with `add` command.')
+              respond('I have no songs, give me a fat beat with `add`!')
               break
             end
             song = @queue.first
@@ -163,7 +163,7 @@ module R2Z2
       def unique_song?(song)
         @queue.each do |song_from_queue|
           if song_from_queue.url == song.url
-            respond('This song has already been added. Use `repeat` command to play songs multiple times.')
+            respond('I have this track loaded. Slap it with a `repeat` to play it more.')
             return false
           end
         end
@@ -175,7 +175,7 @@ module R2Z2
         if song.valid?
           true
         else
-          respond("The song is too long. Maximum length is #{MAX_SONG_LENGTH} seconds.")
+          respond("As sick as this track is, it's too long man. Max length is #{MAX_SONG_LENGTH} seconds.")
           false
         end
       end
@@ -201,7 +201,7 @@ module R2Z2
             # Nothing was played for more than 60 seconds.
             if counter >= 6
               counter = 0
-              disconnect("You haven't been playing anything for too long. Next time use `leave` command after you've finished.")
+              disconnect("Hey man, I've got no requests, I'm bouncing. Use `leave` next time homie.")
             else
               sleep(10)
             end
