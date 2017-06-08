@@ -199,7 +199,7 @@ module R2Z2
 					end
 
 					#Nothing was played for more than 60 seconds.
-					if counter >= 6
+					if counter >= 60
 						counter = 0
 						disconnect("Hey man, I've got no requests, I'm bouncing. Use `leave` next time homie.")
 					else
