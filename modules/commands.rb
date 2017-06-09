@@ -24,8 +24,8 @@ module R2Z2
     end
 
     command(:roll, description: 'Rolls a number of dice', usage: 'roll <number> <number>') do |event, number, num2|
-      if number.to_i?
-        if num2.to_i?
+      if number.to_i.is_a? Numeric
+        if num2.to_i.is_a? Numeric
           if number.to_i > 100
             event << "No, fuck you."
           else
