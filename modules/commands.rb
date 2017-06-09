@@ -24,11 +24,19 @@ module R2Z2
     end
 
     command(:roll, description: 'Rolls a number of dice', usage: 'roll <number> <number>') do |event, number, num2|
-      if number.to_i > 10
-        event << "No, fuck you."
+      if number.to_i?
+        if num2.to_i?
+          if number.to_i > 100
+            event << "No, fuck you."
+          else
+            event << "Rolling #{number}d#{num2}"
+            event <<  number.to_i.times.map{ 1 + Random.rand(num2.to_i) }
+          end
+        else
+          event << "I need numbers please."
+        end
       else
-        event << "Rolling #{number}d#{num2}"
-        event <<  number.to_i.times.map{ 1 + Random.rand(num2.to_i) }
+        event << "I need numbers please."
       end
     end
 
