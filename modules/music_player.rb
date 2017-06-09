@@ -37,7 +37,7 @@ module R2Z2
           Dir.mkdir(@server_dir)
         end
 
-        afk_timer
+#        afk_timer
       end
 
       # Downloads the song and returns true if it succeeded.
@@ -186,30 +186,30 @@ module R2Z2
       end
 
       # Destroys voice connection after it has been inactive for more than 60 seconds.
-      def afk_timer
-        Thread.new do
-          counter = 0
-          loop do
+#      def afk_timer
+#        Thread.new do
+#          counter = 0
+#          loop do
             # Reset counter to zero if something started plaing or there is no voice connection.
-            if @playing || @voice.nil?
-              counter = 0
-              sleep(10)
-            else
-              counter += 1
-            end
+#            if @playing || @voice.nil?
+#              counter = 0
+#              sleep(10)
+#            else
+#              counter += 1
+#            end
 
             # Nothing was played for more than 60 seconds.
-            if counter >= 6
-              counter = 0
-              disconnect("Hey man, I've got no requests, I'm bouncing. Use `leave` next time homie.")
-            else
-              sleep(10)
-            end
-          end
+#            if counter >= 60
+#              counter = 0
+#              disconnect("Hey man, I've got no requests, I'm bouncing. Use `leave` next time homie.")
+#            else
+#              sleep(10)
+#            end
+#          end
 
-          nil
-        end
-      end
+#          nil
+#        end
+#      end
 
       def clean_directory
         Dir.foreach(@server_dir) do |file|
