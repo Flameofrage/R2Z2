@@ -28,7 +28,7 @@ module R2Z2
         event << "No, fuck you."
       else
         event << "Rolling #{number}d#{num2}"
-        event <<  number.to_i.times.map{ Random.rand(num2.to_i) }
+        event <<  number.to_i.times.map{ 1 + Random.rand(num2.to_i) }
       end
     end
 
