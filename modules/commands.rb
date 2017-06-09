@@ -24,8 +24,12 @@ module R2Z2
     end
 
     command(:roll, description: 'Rolls a number of dice', usage: 'roll <number> <number>') do |event, number, num2|
-      event << "Rolling #{number}d#{num2}"
-      event <<  number.to_i.times.map{ Random.rand(num2.to_i) }
+      if number.to_i > 10
+        event << "No, fuck you."
+      else
+        event << "Rolling #{number}d#{num2}"
+        event <<  number.to_i.times.map{ Random.rand(num2.to_i) }
+      end
     end
 
     command(:stats, description: 'Shows bot statistics') do |event|
