@@ -1,9 +1,10 @@
-Module R2Z2
-  Module Events
-    Module Ping
+module R2Z2
+  module Events
+    module Mention
       extend Discordrb::EventContainer
-	R2Z2.message(with_text: 'Ping!') do |event|
-	event.respond 'Pong!'
+      mention do |event|
+	event.respond("Beep beep")
+        STATS.mentions += 1
       end
     end
   end
