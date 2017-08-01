@@ -3,6 +3,7 @@ module R2Z2
     def initialize(username)
         @username = username
         @id = 0
+				@streamer_hash = YAML.load_file("#{Dir.pwd}/data/streamers.yaml")
     end
 
     def IDLookUp
@@ -12,6 +13,7 @@ module R2Z2
         :method => 'GET')
       name = JSON.parse(light.body)
       @id = name["users"][0]["_id"].to_i
+			@streamer_hash[@username] = @id 
     end
 
     if streamers.key?(uname) != true
