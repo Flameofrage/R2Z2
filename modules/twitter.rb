@@ -1,6 +1,8 @@
 module R2Z2
+require 'excon'
+require 'json'
 	class R2Z2Twitter
-    def initialize(username)
+		def initialize(username)
         @username = username
         @id = 0
 				@streamer_hash = YAML.load_file("#{Dir.pwd}/data/streamers.yaml")
