@@ -23,6 +23,20 @@ module R2Z2
                            minlength: event.server.minlength)
     end
 
+=begin
+		command(:streamers, description: 'Checks the list of streamers for status', usage: 'streamers') do |event|
+			for i in stream
+		end
+=end
+
+		command(:addstreamer, description: 'Adds a streamer', usage: 'addstreamer <username>', min_args: 1) do |event, name|
+			if name.is_a? String
+				streamer = R2Z2Twitter.new(name)
+				streamer_hash[:name] = streamer.IDLookUp
+				event << streamer.IDLookUp
+			end 
+		end
+
     command(:roll, description: 'Rolls a number of dice', usage: 'roll <number> <number>') do |event, number, num2|
       if number.to_i.is_a? Numeric
         if num2.to_i.is_a? Numeric
@@ -144,9 +158,8 @@ module R2Z2
       LOGGER.debug "Music bot joined #{event.channel.id}."
       "Joined \"#{channel.name}\". Use `add` command if you want to add songs to queue."
     end
-
-
-    # Adds a song to server queue and starts playing it.
+    
+		# Adds a song to server queue and starts playing it.
     command(:add, description: 'Adds a song to server queue and starts playing it.', usage: 'add <query>', min_args: 1) do |event, *query|
       if !event.voice
         next 'First make me join your voice channel by using `join` command.'

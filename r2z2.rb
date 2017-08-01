@@ -109,11 +109,14 @@ module R2Z2
 	# Bot Config file
 	CONFIG = YAML.load_file('data/config.yaml')
 
+	# Streamer list
+	STREAMER_HASH = YAML.load_file('data/streamers.yaml')
+
 	# Bot Config
 	R2Z2 = Discordrb::Commands::CommandBot.new(token: CONFIG['token'], 
 						    client_id: CONFIG['client_id'],
                 prefix: CONFIG['prefix'],
-                ignore_bots:	true)
+                ignore_bots:	false)
 
 	# R2Z2 Modules
 	Dir['modules/*.rb'].each { |mod| require_relative mod; puts "Loaded: #{mod}" }
