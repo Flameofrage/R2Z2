@@ -16,10 +16,6 @@ module R2Z2
 			@streamer_hash[@username] = @id 
     end
 
-    if streamers.key?(uname) != true
-      streamers[uname] = @id
-    end
-
     def StreamStatus
       dark = Excon.get('https://api.twitch.tv/kraken/streams/' + @id.to_s,
         :headers => {'Client-ID' =>  'mglfxs09bl7fgw3zfm3ppa73e7qbjy', 'Accept' => 'application/vnd.twitchtv.v5+json'},
