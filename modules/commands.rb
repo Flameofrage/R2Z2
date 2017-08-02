@@ -38,7 +38,7 @@ module R2Z2
 			end 
 		end
 
-		command(:streamerstatus, description: 'Checks the status of a streamer', usage: 'streamerstatus <username>', min_args: 1)
+		command(:streamerstatus, description: 'Checks the status of a streamer', usage: 'streamerstatus <username>', min_args: 1) do |event, name|
 			if name.is_a? String
 				streamer = R2Z2Twitter.new(name)
 				streamer.IDLookUp
