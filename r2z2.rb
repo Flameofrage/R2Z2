@@ -110,7 +110,7 @@ module R2Z2
 	CONFIG = YAML.load_file('data/config.yaml')
 
 	# Streamer list
-	STREAMER_HASH = YAML.load_file('data/streamers.yaml')
+	$streamer_hash = YAML.load_file('data/streamers.yaml')
 
 	# Bot Config
 	R2Z2 = Discordrb::Commands::CommandBot.new(token: CONFIG['token'], 

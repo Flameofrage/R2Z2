@@ -37,6 +37,14 @@ module R2Z2
 				event << "Enter a valid username"
 			end 
 		end
+		
+		command(:allstream, description: 'Checks all streamers', usage: 'allstream') do |event|
+			$streamer_hash.each do |key, value|
+				streamer = R2Z2Twitter.new(key)
+				streamer.IDLookUp
+				event << streamer.StreamStatus
+			end
+		end
 
 		command(:streamerstatus, description: 'Checks the status of a streamer', usage: 'streamerstatus <username>', min_args: 1) do |event, name|
 			if name.is_a? String
