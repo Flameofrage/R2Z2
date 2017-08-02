@@ -15,7 +15,8 @@ require 'json'
         :method => 'GET')
       name = JSON.parse(light.body)
       @id = name["users"][0]["_id"].to_i
-			$streamer_hash.merge!(@username: @id)
+			new_streamer = { @username => @id }
+			$streamer_hash.merge!(new_streamer)
     end
 
     def StreamStatus
