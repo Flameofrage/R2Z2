@@ -25,11 +25,10 @@ require 'json'
         :method => 'GET')
       status = JSON.parse(dark.body)
 			s = status["stream"]
-			game = status["stream"]["game"]
-			url = status["stream"]["channel"]["url"]
 			if s != nil
-				#puts s
-				stream = "Currently, " + @username + " is streaming "  + game + " at " + url
+				game = status["stream"]["game"]
+				url = status["stream"]["channel"]["url"]
+				stream = "Currently, " + @username + " is streaming " + game + " at " + url
 			else
 				stream = "Currently, " + @username + " is offline"
 			end
