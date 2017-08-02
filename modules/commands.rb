@@ -32,6 +32,7 @@ module R2Z2
 		command(:addstreamer, description: 'Adds a streamer', usage: 'addstreamer <username>', min_args: 1) do |event, name|
 			if name.is_a? String
 				streamer = R2Z2Twitch.new(name)
+				streamer.IDLookUp
 				event << "I've added " + name + " to the list of streamers"
 			else
 				event << "Enter a valid username"
