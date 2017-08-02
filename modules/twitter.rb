@@ -5,7 +5,7 @@ require 'json'
 		def initialize(username)
         @username = username
         @id = 0
-				@streamer_hash = YAML.load_file("#{Dir.pwd}/data/streamers.yaml")
+				#@streamer_hash = YAML.load_file("#{Dir.pwd}/data/streamers.yaml")
     end
 
     def IDLookUp
@@ -15,7 +15,7 @@ require 'json'
         :method => 'GET')
       name = JSON.parse(light.body)
       @id = name["users"][0]["_id"].to_i
-			@streamer_hash[@username] = @id 
+			$streamer_hash.merge!(@username: @id)
     end
 
     def StreamStatus
