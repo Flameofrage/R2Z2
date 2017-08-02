@@ -23,7 +23,8 @@ require 'json'
         :headers => {'Client-ID' =>  'mglfxs09bl7fgw3zfm3ppa73e7qbjy', 'Accept' => 'application/vnd.twitchtv.v5+json'},
         :method => 'GET')
       status = JSON.parse(dark.body)
-			if status["stream"] != nil
+			s = status["stream"]
+			if s != nil
 				puts "Currently, " + @username + " is streaming " + status["stream"]["game"] + " at " + status["channel"]["url"]
 			else
 				puts "Currently, " + @username + " is offline"

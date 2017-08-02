@@ -17,6 +17,7 @@ GEM
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     event_emitter (0.2.5)
+    excon (0.57.1)
     faraday (0.12.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
@@ -93,10 +94,11 @@ PLATFORMS
 
 DEPENDENCIES
   discordrb (~> 3.0)
+  excon
   google-api-client (= 0.9.11)
-  json (>= 2.0.0)
+  json
   terminal-table (~> 1.6)
   youtube-dl.rb (~> 0.3.1)
 
 BUNDLED WITH
-   1.14.6
+   1.15.3
