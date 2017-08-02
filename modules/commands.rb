@@ -31,7 +31,7 @@ module R2Z2
 
 		command(:addstreamer, description: 'Adds a streamer', usage: 'addstreamer <username>', min_args: 1) do |event, name|
 			if name.is_a? String
-				streamer = R2Z2Twitter.new(name)
+				streamer = R2Z2Twitch.new(name)
 				event << "I've added " + name + " to the list of streamers"
 			else
 				event << "Enter a valid username"
@@ -40,7 +40,7 @@ module R2Z2
 		
 		command(:allstream, description: 'Checks all streamers', usage: 'allstream') do |event|
 			$streamer_hash.each do |key, value|
-				streamer = R2Z2Twitter.new(key)
+				streamer = R2Z2Twitch.new(key)
 				streamer.IDLookUp
 				event << streamer.StreamStatus
 			end
@@ -48,7 +48,7 @@ module R2Z2
 
 		command(:streamerstatus, description: 'Checks the status of a streamer', usage: 'streamerstatus <username>', min_args: 1) do |event, name|
 			if name.is_a? String
-				streamer = R2Z2Twitter.new(name)
+				streamer = R2Z2Twitch.new(name)
 				streamer.IDLookUp
 				event << streamer.StreamStatus
 			else

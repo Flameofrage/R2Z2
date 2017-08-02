@@ -1,7 +1,7 @@
 module R2Z2
 require 'excon'
 require 'json'
-	class R2Z2Twitter
+	class R2Z2Twitch
 		def initialize(username)
         @username = username
         @id = 0
