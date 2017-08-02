@@ -38,6 +38,16 @@ module R2Z2
 			end 
 		end
 
+		command(:streamerstatus, description: 'Checks the status of a streamer', usage: 'streamerstatus <username>', min_args: 1)
+			if name.is_a? String
+				streamer = R2Z2Twitter.new(name)
+				streamer.IDLookUp
+				event << streamer.StreamStatus
+			else
+				event << "Enter a valid username"
+			end
+		end
+
     command(:roll, description: 'Rolls a number of dice', usage: 'roll <number> <number>') do |event, number, num2|
       if number.to_i.is_a? Numeric
         if num2.to_i.is_a? Numeric
