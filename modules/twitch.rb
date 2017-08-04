@@ -7,6 +7,12 @@ require 'json'
         @id = 0
     end
 
+		def save_to_file(file, object)
+			File.open(file, 'w') do |f|
+				f.write YAML.dump(object)
+			end
+		end
+
     def IDLookUp
       light = Excon.get('https://api.twitch.tv/kraken/users',
         :headers => {'Client-ID' => 'mglfxs09bl7fgw3zfm3ppa73e7qbjy', 'Accept' => 'application/vnd.twitchtv.v5+json'},
@@ -17,6 +23,7 @@ require 'json'
 			unless $streamer_hash.include? @username
 				new_streamer = { @username => @id }
 				$streamer_hash.merge!(new_streamer)
+				open("#{Dir.pwd}/data/streamers.yaml", "w") { |f| f.write($streamer_hash.to_yaml) }
 			end
     end
 
