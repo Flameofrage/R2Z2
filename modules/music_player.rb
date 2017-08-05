@@ -124,7 +124,6 @@ module R2Z2
         LOGGER.debug "Playing a song (#{song.inspect}), repeating: #{@repeat}"
         loop do
           @voice.play_file(song.path)
-          STATS.songs_played += 1
           next if @repeat && !@skip
           @skip = false
           delete_first_song unless @queue.first.nil?

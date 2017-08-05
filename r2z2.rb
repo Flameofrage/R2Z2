@@ -111,6 +111,9 @@ module R2Z2
 
 	# Streamer list
 	$streamer_hash = YAML.load_file('data/streamers.yaml')
+	
+	# Stats Variable
+	$stats = YAML.load_file("#{Dir.pwd}/data/stats.yaml")
 
 	# Bot Config
 	R2Z2 = Discordrb::Commands::CommandBot.new(token: CONFIG['token'], 
@@ -128,7 +131,7 @@ module R2Z2
 	modules.each { |m| R2Z2.include! m; puts "Included: #{m}" }
 
   GOOGLE = GoogleServices.new
-  STATS = Stats.new
+  # STATS = Stats.new
 
 	#Limit bucket
 	R2Z2.bucket :limit, limit: 6, time_span: 60, delay: 10

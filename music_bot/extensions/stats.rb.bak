@@ -6,20 +6,14 @@ module R2Z2
     attr_reader :servers, :users, :uptime
 
     def initialize
-      @file = "#{Dir.pwd}/data/stats.yml"
 
-      temp = load_file(@file)
-      if temp.is_a?(Hash) && !temp.empty?
-        @stats = temp
-      else
-        @stats = {}
-        @stats[:urls_shortened] = 0
-        @stats[:messages_read] = 0
-        @stats[:urls_shortened] = 0
-        @stats[:videos_found] = 0
-        @stats[:mentions] = 0
-        @stats[:songs_played] = 0
-      end
+      $stats = {}
+      $stats[:urls_shortened] = 0
+      $stats[:messages_read] = 0
+      $stats[:urls_shortened] = 0
+      $stats[:videos_found] = 0
+      $stats[:mentions] = 0
+      $stats[:songs_played] = 0
 
       @uptime = 0
       @servers = 0
@@ -37,20 +31,20 @@ module R2Z2
 
     def save
       LOGGER.debug 'Saving stats'
-      save_to_file(@file, @stats)
+			open("#{Dir.pwd}/data/stats.yaml", "w") { |f| f.write($stats.to_yaml) }
     end
 
     private
 
     # Creates get and set methods from hash keys.
     def create_methods
-      @stats.keys.each do |key|
+      $stats.keys.each do |key|
         self.class.send(:define_method, key) do
-          @stats[key]
+          $stats[key]
         end
 
         self.class.send(:define_method, "#{key}=") do |value|
-          @stats[key] = value
+          $stats[key] = value
         end
       end
     end

@@ -21,13 +21,8 @@ module R2Z2
                            preview: event.server.preview,
                            original: event.server.original,
                            minlength: event.server.minlength)
+			$stats[:lmgtfy_links] += 1
     end
-
-=begin
-		command(:streamers, description: 'Checks the list of streamers for status', usage: 'streamers') do |event|
-			for i in stream
-		end
-=end
 
 		command(:addstreamer, description: 'Adds a streamer', usage: 'addstreamer <username>', min_args: 1) do |event, name|
 			if name.is_a? String
@@ -76,15 +71,15 @@ module R2Z2
 
     command(:stats, description: 'Shows bot statistics') do |event|
       ping = ((Time.now - event.timestamp) * 1000).to_i
-      event << "\nServers: #{STATS.servers}."
-      event << "Users: #{STATS.users}."
-      event << "Times mentioned: #{STATS.mentions}."
-      event << "Uptime: #{time_in_words(STATS.uptime)}."
-      event << "Urls shortened: #{STATS.urls_shortened}."
-      event << "Youtube videos found: #{STATS.videos_found}"
-      event << "Songs played: #{STATS.songs_played}"
-      event << "Messages read: #{STATS.messages_read}."
-      event << "Ping: #{ping}ms."
+			event << "Servers: #{$stats["servers"]}."
+      event << "Users: #{$stats["users"]}."
+      event << "Times mentioned: #{$stats["mentions"]}."
+      event << "Uptime: #{$stats["uptime"]}."
+      event << "Urls shortened: #{$stats["urls_shortened"]}."
+      event << "Youtube videos found: #{$stats["videos_found"]}"
+      event << "Songs played: #{$stats["songs_played"]}"
+      event << "Messages read: #{$stats["messages_read"]}."
+			event << "Ping: #{ping}ms."
     end
 
     command(:queue, description: 'Displays current music queue.') do |event|
@@ -108,10 +103,11 @@ module R2Z2
       nil
     end
 
-    command(:yt, description: 'Finds youtube videos.', min_args: 1, usage: 'yt <query>') do |_event, *query|
+    command(:yt, description: 'Finds youtube videos.', min_args: 1, usage: 'yt <query>') do |event, *query|
       video = GOOGLE.find_video(query.join(' '))
       if video
-        "https://youtu.be/#{video}"
+				$stats["videos_found"] += 1
+        event << "https://youtu.be/#{video}"
       else
         'Such video does not exist.'
       end
@@ -195,6 +191,7 @@ module R2Z2
       # Download the song and add it to queue.
       # If this succeeds then start playing it unless music is already being played.
       if event.server.music_player.add(video_id)
+				$stats["songs_played"] += 1
         event.server.music_player.start_loop unless event.server.music_player.playing?
       end
       nil
