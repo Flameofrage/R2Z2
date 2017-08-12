@@ -174,7 +174,14 @@ module R2Z2
       LOGGER.debug "Music bot joined #{event.channel.id}."
       "Joined \"#{channel.name}\". Use `add` command if you want to add songs to queue."
     end
-    
+   
+		command(:exit, help_available: false) do |event|
+			break unless event.user.id == 216142038574301195
+
+			bot.send_message(event.channel.id, 'Beep')
+			exit
+		end
+
 		# Adds a song to server queue and starts playing it.
     command(:add, description: 'Adds a song to server queue and starts playing it.', usage: 'add <query>', min_args: 1) do |event, *query|
       if !event.voice
