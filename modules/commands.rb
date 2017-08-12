@@ -178,7 +178,7 @@ module R2Z2
 		command(:exit, help_available: false) do |event|
 			break unless event.user.id == 216142038574301195
 
-			bot.send_message(event.channel.id, 'Beep')
+			R2Z2.send_message(event.channel.id, 'Beep')
 			exit
 		end
 
