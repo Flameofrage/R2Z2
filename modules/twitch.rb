@@ -15,7 +15,8 @@ require 'json'
 
     def IDLookUp
       light = Excon.get('https://api.twitch.tv/kraken/users',
-        :headers => {'Client-ID' => 'mglfxs09bl7fgw3zfm3ppa73e7qbjy', 'Accept' => 'application/vnd.twitchtv.v5+json'},
+        :headers => {'Client-ID' => $twitch_client_id, 
+										 'Accept' => 'application/vnd.twitchtv.v5+json'},
         :query => {:login => @username},
         :method => 'GET')
       name = JSON.parse(light.body)

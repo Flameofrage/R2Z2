@@ -1,5 +1,6 @@
 *.swp
 config.yaml
 data/music_bot/*
+data/*
 !data/music_bot/.gitkeep
 tags

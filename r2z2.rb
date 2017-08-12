@@ -109,6 +109,9 @@ module R2Z2
 	# Bot Config file
 	CONFIG = YAML.load_file('data/config.yaml')
 
+	# Twitch Client-ID
+	$twitch_client_id = CONFIG['twitch_client_id']
+
 	# Streamer list
 	$streamer_hash = YAML.load_file('data/streamers.yaml')
 	
