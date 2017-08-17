@@ -40,6 +40,7 @@ module R2Z2
 				streamer.IDLookUp
 				event << streamer.StreamStatus
 			end
+			return nil
 		end
 
 		command(:streamerstatus, description: 'Checks the status of a streamer', usage: 'streamerstatus <username>', min_args: 1) do |event, name|

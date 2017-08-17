@@ -25,6 +25,7 @@ module R2Z2
 						new_streamer = { @username => @id }
 						$streamer_hash.merge!(new_streamer)
 						open("#{Dir.pwd}/data/streamers.yaml", "w") { |f| f.write($streamer_hash.to_yaml) }
+						return nil
 					end
     		end
 
