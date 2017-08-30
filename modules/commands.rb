@@ -16,7 +16,7 @@ module R2Z2
       event.respond "*slaps around <@#{members.sample}> with a large trout*"	
     end
 
-    command(:search, description: 'Performs a duckduckgo search', usage: 'search <query>', min_args: 1) do |event, term|
+    command(:search, description: 'Performs a duckduckgo search', usage: 'search <query>', min_args: 1) do |event, *term|
       ddg = DuckDuckGo.new
       search = ddg.zeroclickinfo(term)
       event << search.related_topics["_"][0].text
