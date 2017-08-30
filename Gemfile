@@ -5,5 +5,6 @@ gem 'terminal-table',       '~> 1.6'
 gem 'youtube-dl.rb',        '~> 0.3.1'
 gem 'google-api-client',    '~> 0.9.11', require: false
 gem 'json'
+gem 'duck-duck-go'
 gem 'excon'
 gem 'pry-byebug'

@@ -16,10 +16,10 @@ module R2Z2
       event.respond "*slaps around <@#{members.sample}> with a large trout*"	
     end
 
-    command(:lmgtfy, min_args: 1, description: 'Generates Let Me Goole That For You link.', usage: 'lmgtfy <text>') do |event, *text|
-      GOOGLE.shorten_text("http://lmgtfy.com/?q=#{text.join('+')}"
-                           )
-			$stats[:lmgtfy_links] += 1
+    command(:search, description: 'Performs a duckduckgo search', usage: 'search <query>', min_args: 1) do |event, term|
+      ddg = DuckDuckGo.new
+      search = ddg.zeroclickinfo(term)
+      event << search.related_topics["_"][0].text
     end
 
 		command(:addstreamer, description: 'Adds a streamer', usage: 'addstreamer <username>', min_args: 1) do |event, name|
