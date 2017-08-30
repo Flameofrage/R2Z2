@@ -18,7 +18,7 @@ module R2Z2
 
     command(:search, description: 'Performs a duckduckgo search', usage: 'search <query>', min_args: 1) do |event, *term|
       ddg = DuckDuckGo.new
-      search = ddg.zeroclickinfo(term)
+      search = ddg.zeroclickinfo(term.join(''))
       event << search.related_topics["_"][0].text
     end
 
