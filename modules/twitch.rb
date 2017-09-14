@@ -5,7 +5,11 @@ module R2Z2
 				def initialize(username)
         	@username = username
         	@id = 0
-    		end
+          @link = Excon.new('https://api.twitch.tv',
+                            :headers =>  {'Client-ID' => $twitch_client_id, 'Accept' => 'application/vnd.twitchtv.v5+json'},
+                            :persistent => true,
+                            :method => 'GET')
+        end 
 
 				def save_to_file(file, object)
 					File.open(file, 'w') do |f|
@@ -14,12 +18,9 @@ module R2Z2
 				end
 
     		def IDLookUp
-      		light = Excon.get('https://api.twitch.tv/kraken/users',
-        		:headers => {'Client-ID' => $twitch_client_id, 
-												 'Accept' => 'application/vnd.twitchtv.v5+json'},
-        		:query => {:login => @username},
-        		:method => 'GET')
-      		name = JSON.parse(light.body)
+      		twitchid = @link.get(:query => {:login => @username},
+                         :path => '/kraken/users')
+      		name = JSON.parse(twitchid.body)
       		@id = name["users"][0]["_id"].to_i
 					unless $streamer_hash.include? @username
 						new_streamer = { @username => @id }
@@ -30,10 +31,8 @@ module R2Z2
     		end
 
     		def StreamStatus
-      		dark = Excon.get('https://api.twitch.tv/kraken/streams/' + @id.to_s,
-        		:headers => {'Client-ID' =>  'mglfxs09bl7fgw3zfm3ppa73e7qbjy', 'Accept' => 'application/vnd.twitchtv.v5+json'},
-        		:method => 'GET')
-      		status = JSON.parse(dark.body)
+      		twitchstatus = @link.get(:path => '/kraken/streams/' + @id.to_s,)
+      		status = JSON.parse(twitchstatus.body)
 					s = status["stream"]
 					if s != nil
 						game = status["stream"]["game"]

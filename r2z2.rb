@@ -6,6 +6,7 @@ require 'uri'
 require 'duck_duck_go'
 require 'bundler/setup'
 require 'google/apis/youtube_v3'
+require 'rufus-scheduler'
 require 'google/apis/urlshortener_v1'
 
 Bundler.require(:default)
