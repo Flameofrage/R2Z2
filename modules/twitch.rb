@@ -2,10 +2,11 @@ module R2Z2
 	require 'excon'
 		require 'json'
 			class R2Z2Twitch
-				def initialize(username)
+        @@states = Hash.new(false)
+				
+        def initialize(username)
         	@username = username
         	@id = 0
-          @states = Hash.new(false)
           @counter = Hash.new(0)
           @link = Excon.new('https://api.twitch.tv',
                             :headers =>  {'Client-ID' => $twitch_client_id, 'Accept' => 'application/vnd.twitchtv.v5+json'},
@@ -36,21 +37,21 @@ module R2Z2
           truestat = @link.get(:path => '/kraken/streams/' + @id.to_s)
           stat = JSON.parse(truestat.body)
           if stat['stream'] 
-            # They are streaming
-            # Return false if we already know they're streaming
-            return false if @states[@id]
-        
-                  # If we got this far, they must have just started.
-                      # Cache the new state and return true.
-            @states[@id] = true
+          # They are streaming
+          # Return false if we already know they're streaming
+            return false if @@states[@id]
+          
+            # If we got this far, they must have just started.
+            # Cache the new state and return true.
+            @@states[@id] = true
           else
             # They aren't streaming
             # Ensure this is cached
-            @states[@id] = false
+            @@states[@id] = false
           end
         end
-
-    		def StreamStatus
+    		
+        def StreamStatus
       		twitchstatus = @link.get(:path => '/kraken/streams/' + @id.to_s)
       		status = JSON.parse(twitchstatus.body)
 					s = status["stream"]
