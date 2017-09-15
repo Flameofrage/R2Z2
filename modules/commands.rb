@@ -32,7 +32,16 @@ module R2Z2
 				event << "Enter a valid username"
 			end 
 		end
-		
+
+    $timer.cron '*/15 * * * *' do
+      message = $streamer_hash.keys.map do |key|
+        streamer = R2Z2Twitch.new(key)
+				streamer.IDLookUp
+        streamer.StreamStatus if streamer.started_streaming?
+      end.compact.join("\n")
+      R2Z2.send_message(289603265677492245, message)
+    end
+
 		command(:allstream, description: 'Checks all streamers', usage: 'allstream') do |event|
 			$streamer_hash.each do |key, value|
 				streamer = R2Z2Twitch.new(key)

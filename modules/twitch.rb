@@ -5,6 +5,8 @@ module R2Z2
 				def initialize(username)
         	@username = username
         	@id = 0
+          @states = Hash.new(false)
+          @counter = Hash.new(0)
           @link = Excon.new('https://api.twitch.tv',
                             :headers =>  {'Client-ID' => $twitch_client_id, 'Accept' => 'application/vnd.twitchtv.v5+json'},
                             :persistent => true,
@@ -29,11 +31,41 @@ module R2Z2
 						return nil
 					end
     		end
+=begin        
+        def TrueStat
+          truestat = @link.get(:path => '/kraken/streams/' + @id.to_s,)
+          stat = JSON.parse(truestat.body)
+          if stat['stream']
+            return false if @state[@id]
+            @states[@id] = true
+          else
+            @states[@id] = false
+          end
+        end
+=end
+        def started_streaming?
+          truestat = @link.get(:path => '/kraken/streams/' + @id.to_s)
+          stat = JSON.parse(truestat.body)
+          if stat['stream'] 
+            # They are streaming
+            # Return false if we already know they're streaming
+            return false if @states[@id]
+        
+                  # If we got this far, they must have just started.
+                      # Cache the new state and return true.
+            @states[@id] = true
+          else
+            # They aren't streaming
+            # Ensure this is cached
+            @states[@id] = false
+          end
+        end
 
     		def StreamStatus
-      		twitchstatus = @link.get(:path => '/kraken/streams/' + @id.to_s,)
+      		twitchstatus = @link.get(:path => '/kraken/streams/' + @id.to_s)
       		status = JSON.parse(twitchstatus.body)
 					s = status["stream"]
+          p s
 					if s != nil
 						game = status["stream"]["game"]
 						url = status["stream"]["channel"]["url"]
