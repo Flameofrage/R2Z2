@@ -31,18 +31,7 @@ module R2Z2
 						return nil
 					end
     		end
-=begin        
-        def TrueStat
-          truestat = @link.get(:path => '/kraken/streams/' + @id.to_s,)
-          stat = JSON.parse(truestat.body)
-          if stat['stream']
-            return false if @state[@id]
-            @states[@id] = true
-          else
-            @states[@id] = false
-          end
-        end
-=end
+        
         def started_streaming?
           truestat = @link.get(:path => '/kraken/streams/' + @id.to_s)
           stat = JSON.parse(truestat.body)
