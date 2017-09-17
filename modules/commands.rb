@@ -33,6 +33,16 @@ module R2Z2
 			end 
 		end
 
+    command(:delstreamer, description: 'Removes a streamer', usage: 'delstreamer <username>', min_args: 1) do |event, name|
+      if name.is_a? String && !$streamer_hash.include? name
+        $streamer_hash = $streamer_hash.except!(name)
+        open("#{Dir.pwd}/data/streamer.yaml", "w") { |f| f.write($streamer_hash.to_yaml) }
+        event << "I've removed " + name + " from the list of streamers"
+      else 
+        event << "Enter a valid username"
+      end
+    end
+
     $timer.cron '*/10 * * * *' do
       message = $streamer_hash.keys.map do |key|
         streamer = R2Z2Twitch.new(key)

@@ -3,7 +3,7 @@ module R2Z2
     require 'json'
       class R2Z2Twitch
         @@states = Hash.new(false)
-				
+        
         def initialize(username)
         	@username = username
         	@id = 0
