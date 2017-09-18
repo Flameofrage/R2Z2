@@ -44,7 +44,7 @@ module R2Z2
       end
     end
 
-    $timer.cron '*/10 * * * *' do
+    $timer.cron '*/2 * * * *' do
       message = $streamer_hash.keys.map do |key|
         streamer = R2Z2Twitch.new(key)
 				streamer.IDLookUp
