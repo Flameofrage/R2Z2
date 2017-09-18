@@ -59,7 +59,7 @@ module R2Z2
 					if s != nil
 						game = status["stream"]["game"]
 						url = status["stream"]["channel"]["url"]
-						stream = "Currently, " + @username + " is streaming " + game + " at " + url
+						stream = "Currently, " + @username + " is streaming " + game + " at <" + url + ">"
 					else
 						stream = "Currently, " + @username + " is offline"
 					end
