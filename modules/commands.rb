@@ -27,15 +27,15 @@ module R2Z2
       event << search.related_topics["_"][0].text
     end
 
-		command(:addstreamer, description: 'Adds a streamer', usage: 'addstreamer <username>', min_args: 1) do |event, name|
-			if name.is_a? String
-				streamer = R2Z2Twitch.new(name)
-				streamer.IDLookUp
-				event << "I've added " + name + " to the list of streamers"
-			else
-				event << "Enter a valid username"
-			end 
-		end
+    command(:addstreamer, description: 'Adds a streamer', usage: 'addstreamer <username>', min_args: 1) do |event, name|
+      if (name.is_a? String) and !($streamer_hash.include? name.downcase)
+        streamer = R2Z2Twitch.new(name.downcase)
+	streamer.IDLookUp
+	event << "I've added " + name.downcase + " to the list of streamers"
+      else
+	event << "Enter a valid username"
+      end 
+    end
 
     command(:delstreamer, description: 'Removes a streamer', usage: 'delstreamer <username>', min_args: 1) do |event, name|
       if (name.is_a? String) and ($streamer_hash.include? name)
