@@ -7,7 +7,7 @@ module R2Z2
     end
 
     command(:list_roles) do |event|
-      "Roles are #{event.server.roles.map { |r| [r.name, r.id] }
+      "Roles are #{event.server.roles.map { |r| [r.name, r.id] }"
     end
 
     command(:add_role, description: 'Enables easily adding a user to a list of roles', usage: 'add_role roll user') do |event, *role_name|
