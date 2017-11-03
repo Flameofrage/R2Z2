@@ -6,6 +6,14 @@ module R2Z2
       event.respond "Pong!"
     end
 
+    command(:add_role, description: 'Enables easily adding a user to a list of roles', , usage: 'add_role roll user') do |event, *role_name|
+      break unless event.role.id == &289606790767837184
+      role = event.server.roles { |r| r.name == role_name.join(' ') }
+      next "Role not found: #{role_name.join(' ')}" unless role
+      event.message.mentions.first.add_role(role)
+      "I've added #{event.message.mentions.first} to #{role_name.join(' ')}"
+    end
+
     command(:ice_cream, description: 'Gives out ice cream') do |event|
       event.respond ":ice_cream: :ice_cream:"
     end
@@ -30,10 +38,10 @@ module R2Z2
     command(:addstreamer, description: 'Adds a streamer', usage: 'addstreamer <username>', min_args: 1) do |event, name|
       if (name.is_a? String) and !($streamer_hash.include? name.downcase)
         streamer = R2Z2Twitch.new(name.downcase)
-	streamer.IDLookUp
-	event << "I've added " + name.downcase + " to the list of streamers"
+      	streamer.IDLookUp
+      	event << "I've added " + name.downcase + " to the list of streamers"
       else
-	event << "Enter a valid username"
+      	event << "Enter a valid username"
       end 
     end
 
