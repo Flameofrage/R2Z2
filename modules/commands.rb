@@ -7,7 +7,7 @@ module R2Z2
     end
 
     command(:add_role, description: 'Enables easily adding a user to a list of roles', usage: 'add_role roll user') do |event, *role_name|
-      break unless event.role.id == 289606790767837184
+      break unless event.user.role.id == 289606790767837184
       role = event.server.roles { |r| r.name == role_name.join(' ') }
       next "Role not found: #{role_name.join(' ')}" unless role
       event.message.mentions.first.add_role(role)
