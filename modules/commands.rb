@@ -6,12 +6,8 @@ module R2Z2
       event.respond "Pong!"
     end
 
-    command(:list_roles) do |event|
-      "Roles are #{event.server.roles.map { |r| [r.name, r.id] }"
-    end
-
     command(:add_role, description: 'Enables easily adding a user to a list of roles', usage: 'add_role roll user') do |event, *role_name|
-      break unless [120571255635181568, 216142038574301195].any? { |id| event.user.role?(id) }
+      break unless [289607519154864128, 289606790767837184].any? { |id| event.user.role?(id) }
       role = event.server.roles { |r| r.name == role_name.join(' ') }
       next "Role not found: #{role_name.join(' ')}" unless role
       event.message.mentions.first.add_role(role)
