@@ -10,7 +10,8 @@ module R2Z2
       break unless [289607519154864128, 289606790767837184].any? { |id| event.user.role?(id) }
       role = event.server.roles { |r| r.name == role_name.join(' ') }
       next "Role not found: #{role_name.join(' ')}" unless role
-      event.message.mentions.first.add_role(role)
+      user = event.message.mentions.first
+      user.add_role(role)
       "I've added #{event.message.mentions.first} to #{role_name.join(' ')}"
     end
 
