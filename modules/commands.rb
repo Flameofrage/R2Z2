@@ -6,6 +6,13 @@ module R2Z2
       event.respond "Pong!"
     end
 
+    command(:test) do |event|
+      server = event.server.id
+      event << $stream_channel
+      event << $streamer_hash
+      event << "Here is your test data #{$streamer_hash[server]}"
+    end
+
     command(:add_role, description: 'Enables easily adding a user to a list of roles', usage: 'add_role user role') do |event, _mention, *role_name|
       break unless [289607519154864128, 289606790767837184].any? { |id| event.user.role?(id) }
       role = event.server.roles.find { |r| r.name == role_name.join(' ') }
@@ -47,17 +54,16 @@ module R2Z2
 
     command(:addstreamer, description: 'Adds a streamer', usage: 'addstreamer <username>', min_args: 1) do |event, name|
       if (name.is_a? String) and !($streamer_hash.include? name.downcase)
-        streamer = R2Z2Twitch.new(name.downcase)
+        streamer = R2Z2Twitch.new(name.downcase, event.server.id)
       	streamer.IDLookUp
       	event << "I've added " + name.downcase + " to the list of streamers"
       else
       	event << "Enter a valid username"
       end 
-    end
 
     command(:delstreamer, description: 'Removes a streamer', usage: 'delstreamer <username>', min_args: 1) do |event, name|
       if (name.is_a? String) and ($streamer_hash.include? name)
-        $streamer_hash.delete(name)
+        $streamer_hash[event.server.id].delete(name)
         open("#{Dir.pwd}/data/streamers.yaml", "w") { |f| f.write($streamer_hash.to_yaml) }
         event << "I've removed " + name + " from the list of streamers"
       else 
@@ -65,33 +71,36 @@ module R2Z2
       end
     end
 
-    $timer.cron '*/2 * * * *' do
-      message = $streamer_hash.keys.map do |key|
-        streamer = R2Z2Twitch.new(key)
-				streamer.IDLookUp
-        streamer.StreamStatus if streamer.started_streaming?
-      end.compact.join("\n")
-      R2Z2.send_message(289603265677492245, message)
-    end
+      $timer.cron '*/2 * * * *' do
+        $stream_channel.each do |key, hash|
+          message = $streamer_hash[key].keys.map do |food| #I'll name it food if I want to Z
+            streamer = R2Z2Twitch.new(food)
+            streamer.IDLookUp
+            streamer.StreamStatus if streamer.started_streaming?
+          end.compact.join("\n")
+        R2Z2.send_message(hash, message)
+        end
+      end
 
-		command(:allstream, description: 'Checks all streamers', usage: 'allstream') do |event|
-			$streamer_hash.each do |key, value|
-				streamer = R2Z2Twitch.new(key)
-				streamer.IDLookUp
-				event << streamer.StreamStatus
-			end
-			return nil
+=begin	
+	command(:allstream, description: 'Checks all streamers', usage: 'allstream') do |event|
+		$streamer_hash[event.server.id].each do |key, value|
+			streamer = R2Z2Twitch.new(key)
+			streamer.IDLookUp
+			event << streamer.StreamStatus
 		end
-
-		command(:streamerstatus, description: 'Checks the status of a streamer', usage: 'streamerstatus <username>', min_args: 1) do |event, name|
-			if name.is_a? String
-				streamer = R2Z2Twitch.new(name)
-				streamer.IDLookUp
-				event << streamer.StreamStatus
-			else
-				event << "Enter a valid username"
-			end
+	return nil
+	end
+=end
+	command(:streamerstatus, description: 'Checks the status of a streamer', usage: 'streamerstatus <username>', min_args: 1) do |event, name|
+		if name.is_a? String
+			streamer = R2Z2Twitch.new(name, event.server.id)
+			streamer.IDLookUp
+			event << streamer.StreamStatus
+		else
+			event << "Enter a valid username"
 		end
+	end
 
     command(:roll, description: 'Rolls a number of dice', usage: 'roll <number> <number>') do |event, number, num2|
       if number.to_i.is_a? Numeric
@@ -245,5 +254,6 @@ module R2Z2
       nil
       end
     end
+  end
   end
 end
