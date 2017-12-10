@@ -23,7 +23,7 @@ module R2Z2
 
         def IDLookUp
           twitchid = @@link.get(:query => { :login => @username },
-                               :path => '/kraken/users')
+                                :path => '/kraken/users')
           name = JSON.parse(twitchid.body)
           @id = name['users'][0]['_id'].to_i
         end
@@ -61,9 +61,10 @@ module R2Z2
         end
 
         def AddStreamer
-          unless $stream_data[@server_id]["streamers"].include? @username
+          server = @server_id.join.to_i 
+          unless $stream_data[server]["streamers"].include? @username
             new_streamer = { "streamers" => { @username => @id } }
-            $stream_data[@server_id].merge!(new_streamer) { |_key, left, right| left.merge!(right) }
+            $stream_data[server].merge!(new_streamer) { |_key, left, right| left.merge!(right) }
             open("#{Dir.pwd}/data/stream_data.yaml", 'w') { |f| f.write($stream_data.to_yaml) }
             unless $streamer_hash.include? @username
               $streamer_hash.merge!(new_streamer) { |_key, left, right| left.merge!(right) }

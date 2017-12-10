@@ -64,17 +64,21 @@ module R2Z2
         end
     
         command(:delstreamer, description: 'Removes a streamer', usage: 'delstreamer <username>', min_args: 1) do |event, name|
-          if (name.is_a? String) and ($streamer_hash.include? name)
+          if (name.is_a? String) and ($stream_data[event.server.id]["streamers"].include? name)
             $stream_data[event.server.id]["streamers"].delete(name)
-            $streamer_hash.delete(name)
+            $stream_data.keys.each do |x|
+              @state = false
+              @state = true if $stream_data[x]["streamers"].include? name
+            end
+            $streamer_hash.delete(name) if @state == false
             open("#{Dir.pwd}/data/streamers.yaml", "w") { |f| f.write($streamer_hash.to_yaml) }
-            open("#{Dir.pwd}/data/stream_data.yaml", "w") { |f| f.write($streamer_data.to_yaml) }
+            open("#{Dir.pwd}/data/stream_data.yaml", "w") { |f| f.write($stream_data.to_yaml) }
             event << "I've removed " + name + " from the list of streamers"
           else 
             event << "Enter a valid username"
           end
         end
-    
+ 
         $timer.cron '*/2 * * * *' do
           message = $streamer_hash.keys.map do |key|
             streamer = R2Z2Twitch.new(key)
@@ -82,11 +86,8 @@ module R2Z2
             streamer.StreamStatus if streamer.started_streaming?
           end.compact.join("\n")
 	  $stream_data.keys.map do |key|
-            p message
-            p key
             $stream_data[key]["streamers"].keys.each do |x|
               true_message = message.split("\n").grep /(#{x})/
-              p true_message
               t = true_message.join(". ")
               s = $stream_data[key]["notification_channel"]
               if !true_message.empty?
@@ -95,16 +96,17 @@ module R2Z2
             end
           end
         end 
-=begin	
+	
     	command(:allstream, description: 'Checks all streamers', usage: 'allstream') do |event|
-    		$streamer_hash[event.server.id].each do |key, value|
-    			streamer = R2Z2Twitch.new(key)
-    			streamer.IDLookUp
-    			event << streamer.StreamStatus
-    		end
-    	return nil
+          p event.server.id
+          $stream_data[event.server.id]['streamers'].each do |key, value|
+            streamer = R2Z2Twitch.new(key)
+            streamer.IDLookUp
+            event << streamer.StreamStatus
+          end
+    	  return nil
     	end
-=end
+
     	command(:streamerstatus, description: 'Checks the status of a streamer', usage: 'streamerstatus <username>', min_args: 1) do |event, name|
     		if name.is_a? String
     			streamer = R2Z2Twitch.new(name, event.server.id)
