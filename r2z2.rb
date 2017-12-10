@@ -110,8 +110,8 @@ module R2Z2
 	# Bot Config file
 	CONFIG = YAML.load_file('data/config.yaml')
   
-  #Rufus Scheduler
-  $timer = Rufus::Scheduler.new
+        #Rufus Scheduler
+        $timer = Rufus::Scheduler.new
 
 	# Twitch Client-ID
 	$twitch_client_id = CONFIG['twitch_client_id']
