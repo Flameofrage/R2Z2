@@ -199,7 +199,12 @@ module R2Z2
           event.server.music_player.disconnect
           nil
         end
-        
+
+        command(:volume, description: 'Sets the volume for R2.', usage: 'volume [0.5, 1, 2]', min_args: 1) do |event, volume|
+          event.server.music_player.volume = volume
+          event << "Volume has been set to #{volume}"
+        end
+
         #Makes R2 join voice channel
         command(:join, description: 'Makes the bot join your voice channel.', required_permissions: [:manage_server]) do |event|
           channel = event.user.voice_channel

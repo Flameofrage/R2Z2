@@ -17,6 +17,9 @@ module R2Z2
       # Text channel that should be used for bot responses.
       attr_accessor :channel
 
+      # Voice object for volume
+      attr_accessor :volume
+
       # Voice object that should be ued for playback.
       attr_accessor :voice
 
