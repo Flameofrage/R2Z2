@@ -82,9 +82,16 @@ module R2Z2
             streamer.StreamStatus if streamer.started_streaming?
           end.compact.join("\n")
 	  $stream_data.keys.map do |key|
-            $stream_data[key]["streamers"].keys.map do |stream|
-              true_message = message.lines.to_a.select { |str| str.include?(stream.to_s) }
-              R2Z2.send_message($stream_data[key]["notification_channel"], true_message.join(", "))
+            p message
+            p key
+            $stream_data[key]["streamers"].keys.each do |x|
+              true_message = message.split("\n").grep /(#{x})/
+              p true_message
+              t = true_message.join(". ")
+              s = $stream_data[key]["notification_channel"]
+              if !true_message.empty?
+                R2Z2.send_message(s, t)
+              end
             end
           end
         end 
