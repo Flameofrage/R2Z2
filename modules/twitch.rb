@@ -3,7 +3,7 @@ module R2Z2
     require 'json'
       class R2Z2Twitch
         @@states = Hash.new(false)
-        @@@link = Excon.new('https://api.twitch.tv',
+        @@link = Excon.new('https://api.twitch.tv',
                            :headers =>  { 'Client-ID' => $twitch_client_id, 'Accept' => 'application/vnd.twitchtv.v5+json' },
                            :persistent => true,
                            :method => 'GET')
