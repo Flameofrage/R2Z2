@@ -120,7 +120,7 @@ module R2Z2
 	$streamer_hash = YAML.load_file('data/streamers.yaml')
 	
 	# Stream Channel list
-	$stream_channel = YAML.load_file('data/channel.yaml')
+	$stream_data = YAML.load_file('data/streamer_data.yaml')
 
 	# Stats Variable
 	$stats = YAML.load_file("#{Dir.pwd}/data/stats.yaml")
