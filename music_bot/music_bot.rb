@@ -1,7 +1,7 @@
 # For some dumb reason Rubocop asked me to comment here.
 module R2Z2
   # Load other MusicBot files.
-  Dir["#{File.dirname(__FILE__)}/extensions/*.rb"].each { |file| require file }
+  Dir['/extensions/*.rb'].each { |file| require file }
 
   # Contains classes and information for music bot features.
   module MusicBot

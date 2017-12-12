@@ -32,6 +32,7 @@ module R2Z2
         @repeat = false
         @skip = false
         @playing = false
+	@voice = 1
         @server_dir = "#{Dir.pwd}/data/music_bot/#{id}/"
 
         if Dir.exist?(@server_dir)

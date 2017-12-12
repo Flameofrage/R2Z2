@@ -8,6 +8,8 @@ require 'bundler/setup'
 require 'google/apis/youtube_v3'
 require 'rufus-scheduler'
 require 'google/apis/urlshortener_v1'
+require 'excon'
+require 'json'
 
 Bundler.require(:default)
 
@@ -88,57 +90,70 @@ module R2Z2
       {}
     end
   end
-	run_supressed { Discordrb::LOG_TIMESTAMP_FORMAT = '%Y-%m-%d %H:%M:%S' }
 
-	debug = ARGV.include?('-debug') ? :debug : false
-	log_streams = [STDOUT]
+  # R2Z2 Modules
+  Dir['modules/*.rb'].each { |mod| load mod }
 
-	if debug
-		timestamp = Time.now.strftime(Discordrb::LOG_TIMESTAMP_FORMAT).tr(':', '-')
-		log_file = File.new("#{Dir.pwd}/logs/#{timestamp}.log", 'a+')
-		log_streams.push(log_file)
-	end
+  # Load Music Modules
+  Dir['music_bot/*.rb'].each { |mod| load mod }
 
-	run_supressed { LOGGER = Discordrb::LOGGER = Discordrb::Logger.new(nil, log_streams) }
+  # R2Z2 Configuration
+  CONFIG = Config.new
 
-	LOGGER.debug = true if debug
-
-	require_relative 'music_bot/music_bot.rb'
-	require_relative 'music_bot/server.rb'
-  require_relative 'music_bot/store_data.rb'
-
-	# Bot Config file
-	CONFIG = YAML.load_file('data/config.yaml')
+  # Load Music Extension Modules
+  Dir['music_bot/extensions/*.rb'].each { |mod| load mod } 
   
-        #Rufus Scheduler
-        $timer = Rufus::Scheduler.new
+  # Streamer List 
+  STREAMER_HASH = StreamerHash.new
 
-	# Twitch Client-ID
-	$twitch_client_id = CONFIG['twitch_client_id']
+  # Stream Data
+  STREAM_DATA = StreamData.new
 
-	# Streamer list
-	$streamer_hash = YAML.load_file('data/streamers.yaml')
-	
-	# Stream Channel list
-	$stream_data = YAML.load_file('data/stream_data.yaml')
+  # Maintenance Mode
+  MAINT = Repair.new
 
-	# Stats Variable
-	$stats = YAML.load_file("#{Dir.pwd}/data/stats.yaml")
+  # Twitch
+  STREAMER = R2Z2Twitch.new
 
-	# Bot Config
-	R2Z2 = Discordrb::Commands::CommandBot.new(token: CONFIG['token'], 
-						    client_id: CONFIG['client_id'],
-                prefix: CONFIG['prefix'],
-                ignore_bots:	false)
+  # Rufus Scheduler
+  TIMER = Rufus::Scheduler.new
 
-	# R2Z2 Modules
-	Dir['modules/*.rb'].each { |mod| require_relative mod; puts "Loaded: #{mod}" }
+  # Bot Config
+  R2Z2 = Discordrb::Commands::CommandBot.new(token:       CONFIG.token, 
+                                             client_id:   CONFIG.client_id,
+                                             prefix:      CONFIG.prefix,
+                                             ignore_bots: false)
 
-	modules = [
-		Commands::Add
-	]
-	
-	modules.each { |m| R2Z2.include! m; puts "Included: #{m}" }
+  # Commands
+
+  run_supressed { Discordrb::LOG_TIMESTAMP_FORMAT = '%Y-%m-%d %H:%M:%S' }
+  
+  debug = ARGV.include?('-debug') ? :debug : false
+  log_streams = [STDOUT]
+  
+  if debug
+  	timestamp = Time.now.strftime(Discordrb::LOG_TIMESTAMP_FORMAT).tr(':', '-')
+  	log_file = File.new("#{Dir.pwd}/logs/#{timestamp}.log", 'a+')
+  	log_streams.push(log_file)
+  end
+  
+  run_supressed { LOGGER = Discordrb::LOGGER = Discordrb::Logger.new(nil, log_streams) }
+  
+  LOGGER.debug = true if debug
+  
+  
+  # Stats Variable
+  $stats = YAML.load_file("#{Dir.pwd}/data/stats.yaml")
+ 
+
+  # Commands
+  module DiscordCommands; end
+  Dir['modules/commands/*.rb'].each { |mod| load mod }
+  DiscordCommands.constants.each do |mod|
+    R2Z2.include_commands DiscordCommands.const_get mod
+  end
+  
+  #modules.each { |m| R2Z2.include! m; puts "Included: #{m}" }
 
   GOOGLE = GoogleServices.new
   # STATS = Stats.new
