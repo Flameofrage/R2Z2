@@ -14,7 +14,12 @@ module R2Z2
         begin
           event.bot.voice_connect(channel)
           event.voice.encoder.use_avconv = true
-          event.voice.volume = STREAM_DATA.stream_data[event.server.id]['volume']
+          if STREAM_DATA.stream_data[event.server.id]['volume'].exists?
+            event.voice.volume = STREAM_DATA.stream_data[event.server.id]['volume']
+          else
+            event.voice.volume = 0.5
+            event < "Please be sure to set the volume for this server with <!volume>"
+          end
         rescue Discordrb::Errors::NoPermission
           next 'Please make sure I have permission to join this channel.'
         end
