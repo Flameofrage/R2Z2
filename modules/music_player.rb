@@ -96,7 +96,7 @@ module R2Z2
       # Sets Volume and saves it to the Server's hash
       def volume(volume, server)
         new_volume = { server => { 'volume' => volume }}
-        if STREAM_DATA.stream_data[server]['volume'].exists?
+        unless STREAM_DATA.stream_data[server]['volume'].nil?
           m = STREAM_DATA.stream_data[server].merge!(new_volume) { |_key, left, right| left.merge!(right) }
           STREAM_DATA.update(m)
         else
