@@ -96,8 +96,13 @@ module R2Z2
       # Sets Volume and saves it to the Server's hash
       def volume(volume, server)
         new_volume = { server => { 'volume' => volume }}
-        m = STREAM_DATA.stream_data[server].merge!(new_volume) { |_key, left, right| left.merge!(right) }
-        STREAM_DATA.update(m)
+        if STREAM_DATA.stream_data[server]['volume'].exists?
+          m = STREAM_DATA.stream_data[server].merge!(new_volume) { |_key, left, right| left.merge!(right) }
+          STREAM_DATA.update(m)
+        else
+          m = STREAM_DATA.stream_data.merge!(new_volume) { |_key, left, right| left.merge!(right) }
+          STREAM_DATA.update(m)
+        end
       end
 
       # Deletes entire directory where songs are kept for this server.
