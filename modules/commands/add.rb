@@ -17,11 +17,11 @@ module R2Z2
         # Download the song and add it to queue.
         # If this succeeds then start playing it unless music is already being played.
         if event.server.music_player.add(video_id)
-                                $stats["songs_played"] += 1
+          $stats["songs_played"] += 1
           event.server.music_player.start_loop unless event.server.music_player.playing?
         end
         nil
       end
     end
   end
-end 
+end

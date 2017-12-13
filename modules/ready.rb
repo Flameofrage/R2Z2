@@ -1,4 +1,4 @@
-module SapphireBot
+module R2Z2
   module Events
     # Notifies user that bot is ready to use.
     module ReadyMessage

@@ -7,7 +7,7 @@ module R2Z2
         f.write YAML.dump(object)
       end
     end
-  
+
     # Loads yaml from file or returns an empty hash if file doesn't exist.
     def load_file(file)
       return YAML.load_file(file) if File.exist?(file)

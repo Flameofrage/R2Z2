@@ -32,10 +32,10 @@ module R2Z2
     def self.update_game_status
       servers_with_music_playing = BOT.voices.size
       R2Z2::BOT.game = if servers_with_music_playing.positive?
-                                "music on #{servers_with_music_playing} server#{'s' if servers_with_music_playing != 1}!"
-                              else
-                                false
-                              end
+                         "music on #{servers_with_music_playing} server#{'s' if servers_with_music_playing != 1}!"
+                       else
+                         false
+                       end
     end
   end
 end

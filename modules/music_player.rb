@@ -20,7 +20,7 @@ module R2Z2
       # Voice object for volume
       attr_accessor :volume
 
-      # Voice object that should be ued for playback.
+      # Voice object that should be used for playback.
       attr_accessor :voice
 
       # An array that holds songs.
@@ -32,7 +32,7 @@ module R2Z2
         @repeat = false
         @skip = false
         @playing = false
-	@voice = 1
+      	@voice = 1
         @server_dir = "#{Dir.pwd}/data/music_bot/#{id}/"
 
         if Dir.exist?(@server_dir)
@@ -91,6 +91,13 @@ module R2Z2
             t.add_row([index + 1, title, duration, url])
           end
         end
+      end
+
+      # Sets Volume and saves it to the Server's hash
+      def volume(volume, server)
+        new_volume = { server => { 'volume' => volume }}
+        m = STREAM_DATA.stream_data[server].merge!(new_volume) { |_key, left, right| left.merge!(right) }
+        STREAM_DATA.update(m)
       end
 
       # Deletes entire directory where songs are kept for this server.
