@@ -14,7 +14,7 @@ module R2Z2
         begin
           event.bot.voice_connect(channel)
           event.voice.encoder.use_avconv = true
-          unless !STREAM_DATA.stream_data[event.server.id]['volume'].nil?
+          unless STREAM_DATA.stream_data[event.server.id].nil?
             event.voice.volume = STREAM_DATA.stream_data[event.server.id]['volume']
           else
             event.voice.volume = 0.5
