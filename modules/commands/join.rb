@@ -18,7 +18,7 @@ module R2Z2
             event.voice.volume = STREAM_DATA.stream_data[event.server.id]['volume']
           else
             event.voice.volume = 0.5
-            event < "Please be sure to set the volume for this server with <!volume>"
+            event << "Please be sure to set the volume for this server with <!volume>"
           end
         rescue Discordrb::Errors::NoPermission
           next 'Please make sure I have permission to join this channel.'
@@ -35,4 +35,4 @@ module R2Z2
       end
     end
   end
-end 
+end
