@@ -31,7 +31,7 @@ module R2Z2
         "#{'0' if minutes < 10}#{minutes}:#{'0' if seconds < 10}#{seconds}"
       end
 
-      # Deletes the song file if it can be deleted, or waits until it is and then deletes it.
+      # Deletes the song file if it can be deleted
       def delete
         if can_be_deleted?
           File.delete(@path)
