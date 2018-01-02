@@ -64,7 +64,7 @@ module R2Z2
         STREAM_DATA.add(m)
         unless STREAMER_HASH.streamer_hash.include? @username
           n = STREAMER_HASH.streamer_hash.merge!(new_streamer[server]['streamers']) { |_key, left, right| left.merge!(right) }
-          STREAMER_HASH.update(n)
+          STREAMER_HASH.add(n)
         end
         return nil
       end
