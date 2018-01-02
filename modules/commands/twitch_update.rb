@@ -17,8 +17,8 @@ module R2Z2
                 R2Z2.send_message(s, t)
               end
             end
-          end
-        end.compact!
+          end.compact!
+        end
       end
     end
   end
