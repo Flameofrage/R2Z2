@@ -9,7 +9,7 @@ module R2Z2
         end.compact.join("\n")
         STREAM_DATA.stream_data.keys.map do |key|
           unless STREAM_DATA.stream_data[key]["streamers"].nil?
-            STREAM_DATA.stream_data[key]["streamers"].keys.each do |x| unless STREAM_DATA.stream_data[key]["streamers"].nil?
+            STREAM_DATA.stream_data[key]["streamers"].keys.each do |x|
               true_message = message.split("\n").grep /(#{x})/
               t = true_message.join(". ")
               s = STREAM_DATA.stream_data[key]["notification_channel"]
@@ -23,3 +23,4 @@ module R2Z2
     end
   end
 end
+
