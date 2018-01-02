@@ -1,21 +1,21 @@
 module R2Z2
-  class StreamData
-    attr_accessor :stream_data
+  class TwitchList
+    attr_accessor :twitch_list
 
     def initialize
-      @stream_data = YAML.load_file("#{Dir.pwd}/data/stream_data.yaml")
+      STREAM_DATA.stream_data.keys.map do |key|
+        if STREAM_DATA.stream_data[key]["streamers"].nil?
+          @twitch_list = STREAM_DATA.stream_data.tap { |hs| hs.delete(key) }
+        end
+      end
     end
 
-    def delete(name, server)
-      @stream_data[server]["streamers"].delete(name)
-      open("#{Dir.pwd}/data/stream_data.yaml", "w") { |f| f.write(@stream_data.to_yaml) }
-      return nil
-    end
-
-    def add(hash)
-      @stream_data = hash
-      open("#{Dir.pwd}/data/stream_data.yaml", "w") { |f| f.write(@stream_data.to_yaml) }
-      return nil
+    def update
+      STREAM_DATA.stream_data.keys.map do |key|
+        if STREAM_DATA.stream_data[key]["streamers"].nil?
+          @twitch_list = STREAM_DATA.stream_data.tap { |hs| hs.delete(key) }
+        end
+      end
     end
   end
 end

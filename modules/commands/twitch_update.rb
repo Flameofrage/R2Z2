@@ -7,7 +7,7 @@ module R2Z2
           STREAMER.IDLookUp(key)
           STREAMER.StreamStatus if STREAMER.started_streaming?
         end.compact.join("\n")
-        TWITCH_UPDATES.twitch_updates.keys.map do |key|
+        TWITCH_LIST.twitch_list.keys.map do |key|
           STREAM_DATA.stream_data[key]["streamers"].keys.each do |x|
             true_message = message.split("\n").grep /(#{x})/
             t = true_message.join(". ")

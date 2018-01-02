@@ -110,7 +110,7 @@ module R2Z2
   STREAM_DATA = StreamData.new
 
   # Twitch Updates Hash
-  TWITCH_UPDATES = TwitchUpdates.new
+  TWITCH_LIST = TwitchList.new
 
   # Maintenance Mode
   MAINT = Repair.new
