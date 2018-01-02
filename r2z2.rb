@@ -109,6 +109,13 @@ module R2Z2
   # Stream Data
   STREAM_DATA = StreamData.new
 
+  # Twitch Updates Hash
+  STREAM_DATA.stream_data.keys.map do |key|
+    if STREAM_DATA.stream_data[key]["streamers"].nil?
+      TWITCH_UPDATES = STREAM_DATA.stream_data.tap { |hs| hs.delete(key)  }
+    end
+  end
+
   # Maintenance Mode
   MAINT = Repair.new
 
