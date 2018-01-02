@@ -8,7 +8,7 @@ module R2Z2
           STREAMER.StreamStatus if STREAMER.started_streaming?
         end.compact.join("\n")
         STREAM_DATA.stream_data.keys.map do |key|
-          STREAM_DATA.stream_data[key]["streamers"].keys.each do |x| if !STREAM_DATA.stream_data[key]["streamers"].nil?
+          STREAM_DATA.stream_data[key]["streamers"].keys.each do |x| ? !STREAM_DATA.stream_data[key]["streamers"].nil?
             true_message = message.split("\n").grep /(#{x})/
             t = true_message.join(". ")
             s = STREAM_DATA.stream_data[key]["notification_channel"]
