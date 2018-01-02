@@ -9,12 +9,14 @@ module R2Z2
     def delete(name, server)
       @stream_data[server]["streamers"].delete(name)
       open("#{Dir.pwd}/data/stream_data.yaml", "w") { |f| f.write(@stream_data.to_yaml) }
+      TWITCH_LIST.update
       return nil
     end
 
     def add(hash)
       @stream_data = hash
       open("#{Dir.pwd}/data/stream_data.yaml", "w") { |f| f.write(@stream_data.to_yaml) }
+      TWITCH_LIST.update
       return nil
     end
   end
