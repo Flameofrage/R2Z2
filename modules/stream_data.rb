@@ -6,8 +6,14 @@ module R2Z2
       @stream_data = YAML.load_file("#{Dir.pwd}/data/stream_data.yaml")
     end
 
-    def update(name, server)
+    def delete(name, server)
       @stream_data[server]["streamers"].delete(name)
+      open("#{Dir.pwd}/data/stream_data.yaml", "w") { |f| f.write(@stream_data.to_yaml) }
+      return nil
+    end
+
+    def add(hash)
+      @stream_data = hash
       open("#{Dir.pwd}/data/stream_data.yaml", "w") { |f| f.write(@stream_data.to_yaml) }
       return nil
     end
