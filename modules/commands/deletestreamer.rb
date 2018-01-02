@@ -6,7 +6,7 @@ module R2Z2
         if (name.is_a? String) and (STREAM_DATA.stream_data[event.server.id]["streamers"].keys.include? name)
           n = STREAM_DATA.stream_data[event.server.id]["streamers"].delete(name)
           STREAM_DATA.stream_data.keys.each do |x|
-            if STREAM_DATA.stream_data[x]["streamers"].include? name
+            if STREAM_DATA.stream_data[x]["streamers"].keys.include? name
               @state = true
             else
               @state = false
