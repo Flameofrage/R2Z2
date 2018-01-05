@@ -20,9 +20,6 @@ module R2Z2
       return nil
     end
 
-    def update_server(hash)
-      @
-    end
     def previews_update(server)
       previews = { server => {'previews' => 1 }}
       if @stream_data[server]["previews"].nil?
