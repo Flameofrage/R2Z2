@@ -64,6 +64,13 @@ module Kernel
 		false
 	end
 
+  def notification_update(server)
+    notifications = { server => { 'previews' => 1 }}
+      unless STREAM_DATA.stream_data[notifications].nil?
+        STREAM_DATA.update
+      end
+  end
+
 	# Returns urls host.
 	def url_host(url)
 		URI.parse(url).host
@@ -143,11 +150,11 @@ module R2Z2
   run_supressed { LOGGER = Discordrb::LOGGER = Discordrb::Logger.new(nil, log_streams) }
  
   LOGGER.debug = true if debug
- 
- 
+
+
   # Stats Variable
   $stats = YAML.load_file("#{Dir.pwd}/data/stats.yaml")
- 
+
 
   # Commands
   module DiscordCommands; end
@@ -155,7 +162,7 @@ module R2Z2
   DiscordCommands.constants.each do |mod|
     R2Z2.include_commands DiscordCommands.const_get mod
   end
- 
+
   #modules.each { |m| R2Z2.include! m; puts "Included: #{m}" }
 
   GOOGLE = GoogleServices.new
