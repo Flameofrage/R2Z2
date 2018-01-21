@@ -10,9 +10,10 @@ module R2Z2
         TWITCH_LIST.twitch_list.keys.map do |key|
           true_message = STREAM_DATA.stream_data[key]["streamers"].keys.map do |x|
             message.split("\n").grep /(#{x})/
-          end.compact.join
+          end
+          true_message.reject!{|e| e.empty?}
           s = STREAM_DATA.stream_data[key]["notification_channel"]
-          R2Z2.send_message(s, true_message)
+          R2Z2.send_message(s, true_message.join("\n"))
         end
       end
     end
