@@ -8,7 +8,7 @@ module R2Z2
           STREAMER.StreamStatus if STREAMER.started_streaming?
         end.compact.join("\n")
         TWITCH_LIST.twitch_list.keys.map do |key|
-          true_message = STREAM_DATA.stream_data[key]["streamers"].keys.each do |x|
+          true_message = STREAM_DATA.stream_data[key]["streamers"].keys.map do |x|
             message.split("\n").grep /(#{x})/
           end.compact.join(". ")
           s = STREAM_DATA.stream_data[key]["notification_channel"]
