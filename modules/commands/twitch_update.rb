@@ -12,7 +12,9 @@ module R2Z2
             true_message = message.split("\n").grep /(#{x})/
             t = true_message.join(". ")
             s = STREAM_DATA.stream_data[key]["notification_channel"]
-            R2Z2.send_message(s, t)
+            if (!true_message.empty?) and (MAINT.repair['repair'] == 0)
+              R2Z2.send_message(s, t)
+            end
           end
         end
       end
