@@ -1,6 +1,6 @@
 module R2Z2
   class R2Z2Twitch
- 
+
     def initialize
       @username = 'blarg'
       @id = 0
@@ -11,13 +11,13 @@ module R2Z2
                         :persistent => true,
                         :method => 'GET')
     end
- 
+
     def save_to_file(file, object)
       File.open(file, 'w') do |f|
         f.write YAML.dump(object)
       end
     end
- 
+
     def IDLookUp(username)
       @username = username
       twitchid = @link.get(:query => { :login => @username },
@@ -25,7 +25,7 @@ module R2Z2
       name = JSON.parse(twitchid.body)
       @id = name['users'][0]['_id'].to_i
     end
- 
+
     def started_streaming?
       truestat = @link.get(:path => '/kraken/streams/' + @id.to_s)
       stat = JSON.parse(truestat.body)
@@ -33,7 +33,7 @@ module R2Z2
         # They are streaming
         # Return false if we already know they're streaming
         return false if @states[@id]
- 
+
         # If we got this far, they must have just started.
         # Cache the new state and return true
         @states[@id] = true
