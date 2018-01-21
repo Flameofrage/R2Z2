@@ -13,7 +13,9 @@ module R2Z2
           end
           true_message.reject!{|e| e.empty?}
           s = STREAM_DATA.stream_data[key]["notification_channel"]
-          R2Z2.send_message(s, true_message.join("\n"))
+          if !true_message.empty?
+            R2Z2.send_message(s, true_message.join("\n"))
+          end
         end
       end
     end
