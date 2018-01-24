@@ -57,6 +57,18 @@ module R2Z2
       end
     end
 
+    #Sets Volume and saves it to the Server's hash
+    def nc(channelid, server)
+      new_volume = { server => { 'notification_channel' => channelid  } }
+      unless STREAM_DATA.stream_data[server].nil?
+        m = STREAM_DATA.stream_data[server].merge!(channelid) { |_key, left, right| left.merge!(right)  }
+        STREAM_DATA.update(m)
+      else
+        m = STREAM_DATA.stream_data.merge!(channelid) { |_key, left, right| left.merge!(right)  }
+        STREAM_DATA.update(m)
+      end
+    end
+
     def AddStreamer(server)
       unless STREAM_DATA.stream_data[server]["streamers"].include? @username
         new_streamer = { server => { "streamers" => { @username => @id } } }
