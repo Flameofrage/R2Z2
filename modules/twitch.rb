@@ -62,10 +62,10 @@ module R2Z2
       twitch_channel = { server => { 'notification_channel' => channelid  } }
       unless STREAM_DATA.stream_data[server].nil?
         m = STREAM_DATA.stream_data[server].merge!(twitch_channel) { |_key, left, right| left.merge!(right)  }
-        STREAM_DATA.update(m)
+        STREAM_DATA.add(m)
       else
         m = STREAM_DATA.stream_data.merge!(twitch_channel) { |_key, left, right| left.merge!(right)  }
-        STREAM_DATA.update(m)
+        STREAM_DATA.add(m)
       end
     end
 
