@@ -59,12 +59,12 @@ module R2Z2
 
     #Sets Volume and saves it to the Server's hash
     def nc(channelid, server)
-      new_volume = { server => { 'notification_channel' => channelid  } }
+      twitch_channel = { server => { 'notification_channel' => channelid  } }
       unless STREAM_DATA.stream_data[server].nil?
-        m = STREAM_DATA.stream_data[server].merge!(channelid) { |_key, left, right| left.merge!(right)  }
+        m = STREAM_DATA.stream_data[server].merge!(twitch_channel) { |_key, left, right| left.merge!(right)  }
         STREAM_DATA.update(m)
       else
-        m = STREAM_DATA.stream_data.merge!(channelid) { |_key, left, right| left.merge!(right)  }
+        m = STREAM_DATA.stream_data.merge!(twitch_channel) { |_key, left, right| left.merge!(right)  }
         STREAM_DATA.update(m)
       end
     end

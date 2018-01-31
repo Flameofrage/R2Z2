@@ -20,6 +20,12 @@ module R2Z2
       return nil
     end
 
+    def add(hash)
+      @stream_data = hash
+      open("#{Dir.pwd}/data/stream_data.yaml", "w") { |f| f.write(@stream_data.to_yaml) }
+      return nil
+    end
+
     def previews_update(server)
       previews = { server => {'previews' => 1 }}
       if @stream_data[server]["previews"].nil?
