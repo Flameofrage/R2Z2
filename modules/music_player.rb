@@ -97,7 +97,7 @@ module R2Z2
       def volume(volume, server)
         new_volume = { server => { 'volume' => volume }}
         unless STREAM_DATA.stream_data[server].nil?
-          m = STREAM_DATA.stream_data[server].merge!(new_volume) { |_key, left, right| left.merge!(right) }
+          m = STREAM_DATA.stream_data.merge!(new_volume) { |_key, left, right| left.merge!(right) }
           STREAM_DATA.add(m)
         else
           m = STREAM_DATA.stream_data.merge!(new_volume) { |_key, left, right| left.merge!(right) }
