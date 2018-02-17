@@ -70,14 +70,21 @@ module R2Z2
     end
 
     def AddStreamer(server)
-      unless STREAM_DATA.stream_data[server]["streamers"].include? @username
-        new_streamer = { server => { "streamers" => { @username => @id } } }
-        m = STREAM_DATA.stream_data.merge!(new_streamer) { |_key, left, right| left.merge!(right) { |_2key, ll, rr| ll.merge!(rr) } }
-        STREAM_DATA.add_streamer_streamer(m)
-        unless STREAMER_HASH.streamer_hash.include? @username
-          n = STREAMER_HASH.streamer_hash.merge!(new_streamer[server]['streamers']) { |_key, left, right| left.merge!(right) }
-          STREAMER_HASH.add(n)
+      if STREAM_DATA.stream_data[server].key?('streamers')
+        unless STREAM_DATA.stream_data[server]["streamers"].include? @username
+          new_streamer = { server => { "streamers" => { @username => @id } } }
+          m = STREAM_DATA.stream_data.merge!(new_streamer) { |_key, left, right| left.merge!(right) { |_2key, ll, rr| ll.merge!(rr) } }
+          STREAM_DATA.add_streamer(m)
+          unless STREAMER_HASH.streamer_hash.include? @username
+            n = STREAMER_HASH.streamer_hash.merge!(new_streamer[server]['streamers']) { |_key, left, right| left.merge!(right) }
+            STREAMER_HASH.add(n)
+          end
+          return nil
         end
+      else
+        new_streamer = { server => { "streamers" => { @username => @id } } }
+        m = STREAM_DATA.stream_data.merge!(new_streamer) { |_key, left, right| left.merge!(right) }
+        STREAM_DATA.add_streamer(m)
         return nil
       end
     end
