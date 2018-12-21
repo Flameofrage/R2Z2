@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'discordrb',            '~> 3.0'
-gem 'terminal-table',       '~> 1.6'
-gem 'youtube-dl.rb',        '~> 0.3.1'
-gem 'google-api-client',    '~> 0.9.11', require: false
-gem 'json'
+gem 'discordrb'
 gem 'excon'
+gem 'google-api-client'
+gem 'json'
+gem 'public_suffix'
+gem 'rubocop'
 gem 'rufus-scheduler'
-gem 'rubocop', '~> 0.51.0'
+gem 'terminal-table'
+gem 'youtube-dl.rb'
